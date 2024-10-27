@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Usuario</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+	<div style="margin-left: 20%; width: 60%;">
+		<h1>Usuario</h1>
+		<form th:action="@{/updInsUsuario}" th:object="${objUsuario}" method="post">
+			<input th:field="*{idusuario}" th:placeholder="${objUsuario.idusuario}" style="display: none;">
+			<div class="form-group">
+				<label for="codigo">Nombre usuario</label>
+				<input th:field="*{nomusuario}" type="text" name="nomusuario" th:laceholder="${objUsuario.nomusuario}" class="form-control" required pattern="[A-Za-z0-9_-]{3,15}">
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="codigo">Contraseña</label>
+				<input th:field="*{contrasenia}" type="text" name="contrasenia" th:placeholder="${objUsuario.contrasenia}" class="form-control" required>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="codigo">Correo</label>
+				<input th:field="*{mailusuario}" type="text" name="mailusuario" th:placeholder="${objUsuario.mailusuario}" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="codigo">Rol</label>
+				<select th:field="*{rol}" class="form-control" required>
+					 <option th:if="${objUsuario.rol == null}" th:value="${listaRoles[0].idRol}" th:text="${listaRoles[0].nomRol}"></option>
+					                    <option th:each="rol : ${listaRoles}" 
+					                            th:value="${rol.idRol}" 
+					                            th:text="${rol.nomRol}" 
+					                            th:selected="${rol.idRol == (objUsuario.rol != null ? objUsuario.rol.idRol : listaRoles[0].idRol)}">
+					                    </option>
+				</select>
+			</div>
+			<br>
+			<div class="form-group">
+			                <label for="codigo">Empleado</label>
+			                <select th:field="*{empleado}" class="form-control" required>
+			                    <option th:if="${objUsuario.empleado == null}" th:value="${listaEmpleados[0].idempleado}" th:text="${listaEmpleados[0].nomempleado} + ' ' + ${listaEmpleados[0].apeempleado}"></option>
+			                    <option th:each="emp : ${listaEmpleados}" 
+			                            th:value="${emp.idempleado}" 
+			                            th:text="${emp.nomempleado} + ' ' + ${emp.apeempleado}" 
+			                            th:selected="${emp.idempleado == (objUsuario.empleado != null ? objUsuario.empleado.idempleado : listaEmpleados[0].idempleado)}">
+			                    </option>
+			                </select>
+			            </div>
+			<br>
+			<div class="form-group" th:style="${objUsuario.fecharegistro != null} ? 'display:none;' : ''">
+				<label for="codigo">Fecha de creación</label>
+				<input th:field="*{fecharegistro}" type="date" name="fecharegistro" th:laceholder="${objUsuario.fecharegistro}" class="form-control" required>
+			</div>
+			<br>
+			<button class="btn btn-primary" type="submit">Guardar</button>|
+			<a href="/listadoUsuario" class="btn btn-secondary">Volver</a>		
+		</form>
+	</div>
+</body>
+</html>

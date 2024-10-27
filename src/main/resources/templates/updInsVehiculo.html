@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Vehiculo</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+	<div style="margin-left: 20%; width: 60%;">
+		<h1>Vehiculo</h1>
+		<form th:action="@{/updInsVehiculo}" th:object="${objVehiculo}" method="post">
+			<input th:field="*{idvehiculo}" th:placeholder="${objVehiculo.idvehiculo}" style="display: none;">
+			<div class="form-group">
+				<label for="codigo">Número matrícula</label>
+				<input th:field="*{nummatricula}" type="text" name="nummatricula" th:laceholder="${objVehiculo.nummatricula}" class="form-control" required maxlength="7" pattern="[A-Z0-9-]+">
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="codigo">Marca</label>
+				<input th:field="*{marca}" type="text" name="marca" th:placeholder="${objVehiculo.marca}" class="form-control" required>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="codigo">Modelo</label>
+				<input th:field="*{modelo}" type="text" name="modelo" th:placeholder="${objVehiculo.modelo}" class="form-control" required>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="codigo">Añio de Fabricación</label>
+				<input th:field="*{aniofabricacion}" type="number" name="aniofabricacion" th:laceholder="${objVehiculo.aniofabricacion}" class="form-control" required min="1890" max="2024">
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="codigo">Fecha de compra</label>
+				<input th:field="*{fechcompra}" type="date" name="fechcompra" th:laceholder="${objVehiculo.fechcompra}" class="form-control" required min="1890-01-01" max="${#dates.format(T(java.time.LocalDate).now(), 'yyyy-MM-dd')}">
+			</div>
+			<br>
+			<button class="btn btn-primary" type="submit">Guardar</button>|
+			<a href="/listVehiPlus" class="btn btn-secondary">Volver</a>		
+		</form>
+	</div>
+</body>
+</html>
